@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import colors from './colorsDefinitions';
 import Cube from 'akheron/cubejs/lib/cube';
 import 'akheron/cubejs/lib/solve';
 import CubeAdapter from './cube-adapter';
