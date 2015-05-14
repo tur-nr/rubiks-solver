@@ -1,11 +1,9 @@
 import $ from 'jquery';
 import colors from './colorsDefinitions';
-import Cube from 'akheron/cubejs/lib/cube';
-import 'akheron/cubejs/lib/solve';
+import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
 
-window.Cube = Cube;
 window.CubeAdapter = CubeAdapter;
 window.instructions = instructions;
 
