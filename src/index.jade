@@ -1,8 +1,26 @@
 extends layout
 
 block content
-    .landing__page
-        .title
-        .can__you CAN YOU DO IT BLIND?
-        .button1
-        .button2
+    .landing-page
+        .landing-page__title
+        .landing-page__can-you CAN YOU DO IT BLIND?
+        .landing-page__buttons
+            button.landing-page__button1
+                span NAH, I'M A WUSS
+            button.landing-page__button2
+                span TOTES! LETS GO
+
+    .camera-page
+        include layout_2
+        include cameraInput
+        include doneSquares
+        button.camera-page__next
+            span NEXT
+
+    .loading-page
+        include layout_2
+        include loadingPage
+
+    .solution-page
+        include layout_2
+        include cube

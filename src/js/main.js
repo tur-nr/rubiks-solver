@@ -35,9 +35,13 @@ function setMiddleSquares() {
   }
 }
 
-$('.randomise').click(randomiser);
+$('.cube__randomise').click(randomiser);
 
-$('.complete').click(completeCube);
+$('.cube__complete').click(completeCube);
+
+$('.landing-page__button2').click(swapPageOneForPageTwo);
+
+
 
 function randomiser() {
   var $facebox = $('.face__box');
@@ -82,6 +86,9 @@ function getSquaresOnFace(face) {
   return $(faceClass).find('.face__box');
 }
 
+
+
+/* This function will complete the cube by coloring all the sides the same */
 function completeCube() {
   var i = 0;
   for(var face in faces) {
@@ -98,3 +105,48 @@ function completeCube() {
 
 randomiser();
 setMiddleSquares();
+
+
+function showVideo() {
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  var video = $('.camera-page__webcam')[0];
+  var hdConstraints = {
+    video: {
+      mandatory: {
+        minWidth: 425,
+        minHeight: 425
+      }
+    }
+  };
+
+  navigator.getUserMedia(hdConstraints, function(stream) {
+    video.src = window.URL.createObjectURL(stream);
+  }, function(err) {
+    console.log(err);
+  });
+
+  video.play();
+
+}
+
+function setUpCameraNext() {
+  $('.camera-page__next').click(swapPageTwoForPageThree);
+}
+
+
+/* Nav */
+function swapPageOneForPageTwo() {
+  $('.landing-page').hide();
+  $('.camera-page').show();
+  showVideo();
+  setUpCameraNext();
+}
+
+function swapPageTwoForPageThree() {
+  $('.camera-page').hide();
+  $('.loading-page').show();
+  setTimeout(function() {
+    $('.loading-page').hide();
+    $('.solution-page').show();
+  }, 5000);
+}
