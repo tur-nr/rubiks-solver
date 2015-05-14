@@ -1,22 +1,27 @@
-.scene
-    .cube
-        .cube-face.cube-face-front
-            -for(var i=0; i<9; i++)
-            .face__box
-        .cube-face.cube-face-back
-            -for(var i=0; i<9; i++)
-            .face__box
-        .cube-face.cube-face-left
-            -for(var i=0; i<9; i++)
-            .face__box
-        .cube-face.cube-face-right
-            -for(var i=0; i<9; i++)
-            .face__box
-        .cube-face.cube-face-top
-            -for(var i=0; i<9; i++)
-            .face__box
-        .cube-face.cube-face-bottom
-            -for(var i=0; i<9; i++)
-            .face__box
-button.randomise Randomiser
-button.complete Complete Cube
+.cube__instructions LEFT CLOCKWISE!!!
+.cube__container
+    .scene
+        .cube
+            .cube-face.cube-face-front
+                -for(var i=0; i<9; i++)
+                    .face__box
+            .cube-face.cube-face-back
+                -for(var i=0; i<9; i++)
+                    .face__box
+            .cube-face.cube-face-left
+                -for(var i=0; i<9; i++)
+                    .face__box
+            .cube-face.cube-face-right
+                -for(var i=0; i<9; i++)
+                    .face__box
+            .cube-face.cube-face-top
+                -for(var i=0; i<9; i++)
+                    .face__box
+            .cube-face.cube-face-bottom
+                -for(var i=0; i<9; i++)
+                    .face__box
+.cube__buttons
+    button.cube__randomise
+        span Randomiser
+    button.cube__complete
+        span Complete Cube
