@@ -1,10 +1,22 @@
-$size: 306px; // cube length
+$size: 312px; // cube length
+@mixin size($size) {
+    width: $size;
+    height: $size;
+}
 
 body {
     text-align: center;
     padding: 50px;
-    background: -webkit-radial-gradient(circle, #fffaef, #1a82f7);
 }
+
+.landing__page {
+    @include size(1600px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url('../assets/background_2.png') no-repeat;
+}
+
 .scene {
     display: inline-block;
     margin-top: 50px;
@@ -60,7 +72,7 @@ body {
 
 
 .face__box {
-    border: 1px solid black;
+    border: 2px solid white;
     width: 100px;
     height: 100px;
 }
@@ -98,4 +110,35 @@ body {
 
 .orange-square {
     background-color: orange;
+}
+
+
+.button__standard {
+    height: 97px;
+    width: 300px;
+    span {
+
+    }
+}
+
+/* Landing Page */
+
+@font-face {
+    font-family: 'gotham-book';
+    src: url('../assets/gotham-book-webfont.ttf');
+}
+.title {
+    margin: 0 auto;
+    background: url('../assets/logo_large.png') no-repeat;
+    width: 466px;
+    height: 87px;
+    margin-top: 120px;
+}
+
+.can__you {
+    font-family: gotham-book;
+    color: white;
+    font-size: 35px;
+    padding-top: 30px;
+    text-shadow: 1px 1px 5px #ccc;
 }

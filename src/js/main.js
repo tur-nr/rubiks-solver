@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import colors from './colors';
+import colors from './colorsDefinitions';
 
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
 
