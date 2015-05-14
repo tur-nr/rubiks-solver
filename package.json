@@ -1,19 +1,11 @@
 {
-  "jspm": {
-    "directories": {},
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
-    }
-  },
   "name": "rubiks-solver",
   "version": "0.0.1",
   "description": "Rubik's cube solver, project for the annual Mi9 hackathon.",
   "main": "none",
   "scripts": {
     "install": "jspm install",
-    "start": "live-server"
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",
@@ -34,9 +26,21 @@
   },
   "homepage": "https://github.com/tur-nr/rubiks-solver#readme",
   "devDependencies": {
-    "live-server": "^0.7.1"
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-jade": "^1.0.0",
+    "gulp-live-server": "0.0.14"
   },
   "dependencies": {
     "jspm": "^0.15.6"
+  },
+  "jspm": {
+    "directories": {},
+    "dependencies": {},
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
   }
 }
