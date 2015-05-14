@@ -3,9 +3,10 @@ import colors from './colorsDefinitions';
 import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
+//import 'mrdoob/three.js';
+import tracking from 'eduardolundgren/tracking.js';
 
-window.CubeAdapter = CubeAdapter;
-window.instructions = instructions;
+var tracker = new tracking.ColorTracker(['yellow']);
 
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
 
@@ -106,6 +107,10 @@ setMiddleSquares();
 
 
 function showVideo() {
+  tracking.track('#camera', tracker, {camera: true});
+
+  return;
+
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
   var video = $('.camera-page__webcam')[0];
   var hdConstraints = {

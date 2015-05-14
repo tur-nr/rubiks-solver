@@ -38,6 +38,7 @@
   "jspm": {
     "directories": {},
     "dependencies": {
+      "eduardolundgren/tracking.js": "github:eduardolundgren/tracking.js@1.1.0",
       "jquery": "github:components/jquery@^2.1.4",
       "rcombs/Cube.js": "github:rcombs/Cube.js@master"
     },
