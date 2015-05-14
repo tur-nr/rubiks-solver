@@ -18,22 +18,30 @@ gulp.task('serve', ['build'], function() {
   gulp.watch(['src'], server.notify);
 });
 
-gulp.task('clean', function(done) {
-  del(['dist/*'], done);
+gulp.task('clean:style', function(done) {
+  del(['dist/*.css'], done);
 });
 
-gulp.task('bundle', ['clean'], function(done) {
-  jspm.bundleSFX('src/js/main', 'dist/app.js', { minify: false, sourceMaps: true })
+gulp.task('clean:js', function(done) {
+  del(['dist/*.js'], done);
+});
+
+gulp.task('clean:html', function(done) {
+  del(['dist/*.html'], done);
+});
+
+gulp.task('bundle', ['clean:js'], function(done) {
+  jspm.bundleSFX('src/js/main', 'dist/app.js', { minify: false, sourceMaps: false })
     .then(done);
 });
 
-gulp.task('jade', ['clean'], function() {
+gulp.task('jade', ['clean:html'], function() {
   gulp.src('src/*.jade')
     .pipe(jade())
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('sass', ['clean'], function() {
+gulp.task('sass', ['clean:style'], function() {
   gulp.src('src/styles/main.scss')
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('dist'));

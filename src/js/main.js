@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import colors from './colors';
 
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
@@ -14,13 +15,15 @@ var faces = {
 function setMiddleSquares() {
   var i = 0;
   for(var face in faces) {
-    var $faceSquares = getSquaresOnFace(face);
-    $faceSquares.each(function(key, val) {
-      if(key === 4) {
-        $(val).addClass(colorClasses[i]);
-      }
-    });
-    i++;
+    if(faces.hasOwnProperty(face)) {
+      var $faceSquares = getSquaresOnFace(face);
+      $faceSquares.each(function (key, val) {
+        if (key === 4) {
+          $(val).addClass(colorClasses[i]);
+        }
+      });
+      i++;
+    }
   }
 }
 
@@ -45,10 +48,6 @@ function randomiser() {
 $('.cube').mouseup(function(e) {
   $('.cube').css({transform: 'rotateY('+e.clientX+'deg) rotateX(' + e.clientY + 'deg)' });
 });
-
-randomiser();
-setMiddleSquares();
-
 
 
 /**
@@ -78,10 +77,16 @@ function getSquaresOnFace(face) {
 function completeCube() {
   var i = 0;
   for(var face in faces) {
-    var $faceSquares = getSquaresOnFace(face);
-    $faceSquares.each(function() {
-      $(this).removeClass('blue-square orange-square white-square red-square yellow-square green-square').addClass(colorClasses[i]);
-    });
-    i++;
+    if (faces.hasOwnProperty(face)) {
+      var $faceSquares = getSquaresOnFace(face);
+      $faceSquares.each(function () {
+        $(this).removeClass('blue-square orange-square white-square red-square yellow-square green-square').addClass(colorClasses[i]);
+      });
+      i++;
+    }
   }
 }
+
+
+randomiser();
+setMiddleSquares();
