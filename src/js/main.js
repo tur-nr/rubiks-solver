@@ -3,9 +3,11 @@ import colors from './colorsDefinitions';
 import Cube from 'akheron/cubejs/lib/cube';
 import 'akheron/cubejs/lib/solve';
 import CubeAdapter from './cube-adapter';
+import instructions from './instructions';
 
 window.Cube = Cube;
 window.CubeAdapter = CubeAdapter;
+window.instructions = instructions;
 
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
 
