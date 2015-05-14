@@ -12,6 +12,8 @@
   "description": "Rubik's cube solver, project for the annual Mi9 hackathon.",
   "main": "none",
   "scripts": {
+    "install": "jspm install",
+    "start": "live-server"
   },
   "repository": {
     "type": "git",
@@ -30,5 +32,9 @@
   "bugs": {
     "url": "https://github.com/tur-nr/rubiks-solver/issues"
   },
-  "homepage": "https://github.com/tur-nr/rubiks-solver#readme"
+  "homepage": "https://github.com/tur-nr/rubiks-solver#readme",
+  "devDependencies": {
+    "jspm": "^0.15.6",
+    "live-server": "^0.7.1"
+  }
 }
