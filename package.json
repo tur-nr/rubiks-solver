@@ -34,7 +34,9 @@
   },
   "homepage": "https://github.com/tur-nr/rubiks-solver#readme",
   "devDependencies": {
-    "jspm": "^0.15.6",
     "live-server": "^0.7.1"
+  },
+  "dependencies": {
+    "jspm": "^0.15.6"
   }
 }
