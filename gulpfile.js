@@ -10,10 +10,8 @@ gulp.task('build', ['bundle', 'jade', 'sass']);
 gulp.task('serve', ['build'], function() {
   var server = serve.static('dist').start();
 
-  gulp.watch(['src/*.jade'], ['jade']);
-  gulp.watch(['src/js/*.js'], ['bundle']);
-  gulp.watch(['src/styles/*.scss'], ['sass']);
-  gulp.watch(['src'], server.notify);
+  gulp.watch(['src/**/*'], server.notify);
+  gulp.watch(['src/**/*'], ['build']);
 });
 
 gulp.task('clean', function(done) {

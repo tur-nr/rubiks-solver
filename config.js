@@ -15,6 +15,7 @@ System.config({
 
 System.config({
   "map": {
+    "akheron/cubejs": "github:akheron/cubejs@master",
     "babel": "npm:babel-core@5.3.3",
     "babel-runtime": "npm:babel-runtime@5.3.3",
     "core-js": "npm:core-js@0.9.8",
