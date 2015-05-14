@@ -30,10 +30,10 @@
     "gulp": "^3.8.11",
     "gulp-jade": "^1.0.0",
     "gulp-live-server": "0.0.14",
-    "gulp-sass": "^2.0.1"
+    "gulp-sass": "2.0.0-alpha.1"
   },
   "dependencies": {
-    "jspm": "^0.15.6"
+    "jspm": "^0.15.5"
   },
   "jspm": {
     "directories": {},

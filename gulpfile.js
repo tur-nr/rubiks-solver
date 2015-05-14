@@ -5,6 +5,8 @@ var jade = require('gulp-jade');
 var serve = require('gulp-live-server');
 var sass = require('gulp-sass');
 
+gulp.task('default', ['build']);
+
 gulp.task('build', ['bundle', 'jade', 'sass']);
 
 gulp.task('serve', ['build'], function() {
@@ -21,7 +23,7 @@ gulp.task('clean', function(done) {
 });
 
 gulp.task('bundle', ['clean'], function(done) {
-  jspm.bundleSFX('src/js/main', 'dist/app.js', { minify: true, sourceMaps: true })
+  jspm.bundleSFX('src/js/main', 'dist/app.js', { minify: false, sourceMaps: true })
     .then(done);
 });
 
