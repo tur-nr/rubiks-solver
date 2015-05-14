@@ -1,0 +1,6 @@
+export default {
+  rc: 'RIGHT CLOCKWISE',
+  ra: 'RIGHT ANTICLOCKWISE',
+  lc: 'LEFT CLOCKWISE',
+  la: 'LEFT ANTICLOCKWISE'
+}

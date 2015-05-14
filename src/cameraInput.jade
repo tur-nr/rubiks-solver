@@ -1,8 +1,10 @@
-extends layout
-block content
-    .container
-       .grid
-          -for(var j in [1,2,3,4,5,6,7,8,9])
-          .grid__square
-       -for(var i=0; i<6; i++)
-       .small__square
+.camera-page__match MATCH EACH SIDE TO THE GRID BELOW
+
+.camera-page__grid
+    -for(var j in [1,2,3,4,5,6,7,8,9])
+        .camera-page__grid-square
+            -for(var i=0; i<6; i++)
+                .small__square
+.camera-page__video-container
+    video(width='430px' height='430px' class='camera-page__webcam')
+
