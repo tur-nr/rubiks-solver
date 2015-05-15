@@ -5,6 +5,10 @@ import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
 import tracking from 'eduardolundgren/tracking.js';
 
+Cube.generateTables(function(){}, function() {});
+
+var moves;
+
 var audio = document.createElement('audio');
 function play(key) {
   audio.src = 'assets/' + key + '.mp3';
@@ -85,7 +89,15 @@ function setUpClickEvents() {
 }
 
 function nextMove() {
-  // your stuff goes here
+  var move = moves.shift();
+
+  if (!move) {
+    completeCube();
+    return;
+  }
+
+  play(move.key); 
+  swapInstructionText(move.text);
 }
 
 
@@ -204,14 +216,24 @@ function swapPageOneForPageTwo() {
 function swapPageTwoForPageThree() {
   $('.camera-page').hide();
   $('.loading-page').show();
-  setTimeout(swapPageThreeForPageFour, 5000);
+
+  if (!Cube.tablesGenerated) {
+    setTimeout(swapPageTwoForPageThree, 1000);
+    return;
+  }
+
+  var adapter = createCubeAdapter();
+  Cube.solveCube(adapter.asString(), done, function() {}, false, 24, 15);
+
+  function done(res) {
+    moves = instructions(res);
+    setTimeout(swapPageThreeForPageFour, 3000);
+  } 
 }
 
 function swapPageThreeForPageFour() {
   $('.loading-page').hide();
   $('.solution-page').show();
-  createCubeAdapter()
-  //startRandomMoves()
 }
 
 /* Nav - END */
@@ -227,7 +249,6 @@ function createCubeAdapter() {
     });
     cube.setSide(side, colors);
   }
-  window.cube = cube;
   return cube;
 }
 
@@ -298,5 +319,3 @@ setUpCameraGridSquareColorToggle();
 setUpClickEvents();
 randomiser();
 setMiddleSquares();
-
-createCubeAdapter();
