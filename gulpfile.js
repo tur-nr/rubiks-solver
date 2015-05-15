@@ -42,7 +42,11 @@ gulp.task('images', ['clean:image'], function() {
 
 gulp.task('bundle', ['clean:js'], function(done) {
   jspm.bundleSFX('src/js/main', 'dist/app.js', { minify: false, sourceMaps: false })
-    .then(done);
+    .then(function() {
+      gulp.src('jspm_packages/github/rcombs/Cube.js@master/CubeWorker.js')
+        .pipe(gulp.dest('dist'))
+        .on('end', done);
+    });
 });
 
 gulp.task('jade', ['clean:html'], function() {

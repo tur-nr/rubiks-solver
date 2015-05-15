@@ -119,62 +119,61 @@ button {
 /* Camera Page */
 
 .camera-page {
-    @include size(1600px);
+    @include size(1600px, 1200px);
     display: none;
     position: absolute;
     left: 0;
     top: 0;
     background: url('../assets/background.png') no-repeat;
     z-index: -100;
-}
 
-.camera-page__match {
-    font-family: gotham-bold;
-    font-size: 35px;
-    color: white;
-}
+    .camera-page__match {
+        font-family: gotham-bold;
+        font-size: 35px;
+        color: white;
+    }
 
-.camera-page__grid {
-    position: absolute;
-    top: 250px;
-    left: 40%;
-    @include size(311px);
-    border: 3px solid white;
-    display: flex;
-    flex-flow: row wrap;
-    z-index: 2;
-    .camera-page__grid-square {
-        @include size(100px);
-        border: 2px solid white
+    .camera-page__grid {
+        position: absolute;
+        top: 250px;
+        left: 40%;
+        @include size(318px, 318px);
+        border: 3px solid white;
+        display: flex;
+        flex-flow: row wrap;
+        z-index: 2;
+        .camera-page__grid-square {
+            @include size(102px, 102px);
+            border: 2px solid white
+        }
+    }
+
+    .camera-page__video-container {
+        position: absolute;
+        top: 201px;
+        left: 40%;
+        width: 318px;
+        height: 368px;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .camera-page__webcam {
+        position: absolute;
+        left: 0;
+        @include size(425px, 425px);
+        z-index: 1;
+    }
+    .camera-page__next {
+        position: absolute;
+        bottom: 350px;
+        left: 40%;
     }
 }
-
-.camera-page__video-container {
-    position: absolute;
-    top: 203px;
-    left: 40%;
-    width: 311px;
-    height: 359px;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.camera-page__webcam {
-    position: absolute;
-    left: 0;
-    @include size(425px);
-    z-index: 1;
-}
-.camera-page__next {
-    position: absolute;
-    bottom: 550px;
-    left: 40%;
-}
-
 /* doneSquares */
 
 .done-square {
-    @include size(101px);
+    @include size(102px, 102px);
     border: 2px solid white;
     position: absolute;
     display: flex;
@@ -212,37 +211,37 @@ button {
     }
 
     .done-square__grid-square {
-        @include size(30px);
+        @include size(30px, 30px);
         border: 2px solid white;
+        box-shadow: 0 0 5px white;
     }
 }
 
 /* Loading Page */
 .loading-page {
-    @include size(1600px);
+    @include size(1600px, 1200px);
     display: none;
     position: absolute;
     left: 0;
     top: 0;
     background: url('../assets/background.png') no-repeat;
     z-index: -100;
-}
 
-.loading-page__gif {
-    background: url('../assets/Loading.gif');
-    width: 524px;
-    height: 500px;
-    margin: 0 auto;
-}
+    .loading-page__gif {
+        background: url('../assets/Loading.gif');
+        width: 524px;
+        height: 500px;
+        margin: 0 auto;
+    }
 
-.loading-page__hold {
-    @include standardText();
-}
+    .loading-page__hold {
+        @include standardText();
+    }
 
-.loading-page__calculating {
-    @include standardText();
+    .loading-page__calculating {
+        @include standardText();
+    }
 }
-
 /* Solution page */
 .solution-page {
     @include size(1600px);
@@ -280,7 +279,7 @@ button {
                 height: inherit;
                 position: absolute;
                 background: red;
-                opacity: 0.9;
+                opacity: 1;
                 display: flex;
                 flex-flow: row wrap;
                 border: 2px solid white;

@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import colors from './colorsDefinitions';
 import moves from './movesDefinitions';
-import Cube from 'akheron/cubejs/lib/cube';
-import 'akheron/cubejs/lib/solve';
+import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
+import instructions from './instructions';
+//import 'mrdoob/three.js';
+import tracking from 'eduardolundgren/tracking.js';
 
+var tracker = new tracking.ColorTracker(['yellow']);
 
 var movesArray = ['RIGHT CLOCKWISE', 'RIGHT ANTICLOCKWISE', 'LEFT CLOCKWISE', 'LEFT ANTICLOCKWISE'];
-
-window.Cube = Cube;
-window.CubeAdapter = CubeAdapter;
 
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
 
@@ -37,18 +37,18 @@ function setMiddleSquares() {
   }
 }
 
-$('.cube__randomise').click(randomiser);
+function setUpClickEvents() {
+  $('.cube__randomise').click(randomiser);
 
-$('.cube__complete').click(completeCube);
+  $('.cube__complete').click(completeCube);
 
-$('.landing-page__button2').click(swapPageOneForPageTwo);
-
-
+  $('.landing-page__button2').click(swapPageOneForPageTwo);
+}
 
 function randomiser() {
   var $facebox = $('.face__box');
   $facebox.each(function() {
-    $(this).addClass(colorClasses[Math.floor(Math.random() * colorClasses.length)]);
+    $(this).addClass(colorClasses[Math.floor(Math.random() * colorClasses.length-1)]);
   });
 
   setMiddleSquares();
@@ -104,52 +104,29 @@ function completeCube() {
   }
 }
 
-
-randomiser();
-setMiddleSquares();
-
-
 function showVideo() {
-  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-  var video = $('.camera-page__webcam')[0];
-  var hdConstraints = {
-    video: {
-      mandatory: {
-        minWidth: 425,
-        minHeight: 425
-      }
-    }
-  };
-
-  navigator.getUserMedia(hdConstraints, function(stream) {
-    video.src = window.URL.createObjectURL(stream);
-  }, function(err) {
-    console.log(err);
-  });
-
-  video.play();
-
+  return tracking.track('#camera', tracker, {camera: true});
 }
 
-function setUpCameraNext() {
+function setUpCameraPageNextClickEvent() {
   $('.camera-page__next').click(swapPageTwoForPageThree);
 }
 
-function getRandomMove() {
-  return movesArray[Math.floor(Math.random() * movesArray.length)];
-}
-
-function swapMoveText() {
-  $('.cube__instructions').text(getRandomMove());
+function swapInstructionText(text) {
+  $('.cube__instructions').text(text);
 }
 
 /* TEST */
 function startRandomMoves() {
   setInterval(function() {
-    swapMoveText();
+    swapInstructionText(getRandomMove());
     randomiser();
   }, 3000);
 
+}
+
+function getRandomMove() {
+  return movesArray[Math.floor(Math.random() * movesArray.length)];
 }
 
 /* Nav */
@@ -157,7 +134,7 @@ function swapPageOneForPageTwo() {
   $('.landing-page').hide();
   $('.camera-page').show();
   showVideo();
-  setUpCameraNext();
+  setUpCameraPageNextClickEvent();
 }
 
 function swapPageTwoForPageThree() {
@@ -171,3 +148,9 @@ function swapPageThreeForPageFour() {
   $('.solution-page').show();
   startRandomMoves()
 }
+
+
+
+setUpClickEvents();
+randomiser();
+setMiddleSquares();
