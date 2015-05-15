@@ -3,10 +3,20 @@ import colorDefinitions from './colorsDefinitions';
 import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
-//import 'mrdoob/three.js';
 import tracking from 'eduardolundgren/tracking.js';
 
-var tracker = new tracking.ColorTracker(['yellow']);
+var audio = document.createElement('audio');
+function play(key) {
+  audio.src = 'assets/' + key + '.mp3';
+  audio.play();
+}
+
+function playDone() {
+  audio.src = 'assets/done.mp3';
+  audio.play();
+}
+
+var tracker = new tracking.ColorTracker();
 
 var movesArray = ['RIGHT CLOCKWISE', 'RIGHT ANTICLOCKWISE', 'LEFT CLOCKWISE', 'LEFT ANTICLOCKWISE'];
 
@@ -32,12 +42,20 @@ var cheatModeConfig = [
   ['green', 'orange', 'yellow', 'green', 'blue', 'white', 'red', 'white', 'yellow'],
   ['green', 'red', 'white', 'green', 'yellow', 'yellow', 'white', 'blue', 'blue']
 ];
+function faceSort(matrix) {
+  return matrix.sort(function(a, b) {
+    return a.y - b.y;
+  }).sort(function(a, b) {
+    return ((a.y * a.y) + a.x) - ((b.y * b.y) + b.x);
+  });
+}
 
 
 
 var doneSquareChecker = 1;
 
 
+/* 3D Cube - START */
 /* 3D Cube - START */
 function setMiddleSquares() {
   var i = 0;
@@ -122,8 +140,6 @@ function paintCheatModeOnCube() {
  */
 function getSquaresOnFace(face) {
   var faceClass = faces[face];
-
-
   return $(faceClass).find('.face__box');
 }
 
@@ -143,14 +159,10 @@ function completeCube() {
   }
   swapInstructionText('BOOM!!!');
 }
-
 /* 3D Cube - END */
 
 function showVideo() {
   tracking.track('#camera', tracker, {camera: true});
-  tracker.on('track', function(event) {
-    console.log(event.data.length);
-  });
 }
 
 function setUpCameraPageNextClickEvent() {

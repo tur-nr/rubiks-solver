@@ -21,8 +21,16 @@ var map = {
 
 export default function(instr) { 
   var arr = instr.split(' ');
+  var res = [];
 
-  return arr.map(function(ins) { 
-    return map[ins];
+  arr.forEach(function(ins) { 
+    if (ins[1] === '2') {
+      ins = ins[0];
+       res.push({ text: map[ins], key: ins });
+    }
+
+    res.push({ text: map[ins], key: ins });
   });
+  
+  return res;
 };
