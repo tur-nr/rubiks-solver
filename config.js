@@ -19,6 +19,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.3.3",
     "core-js": "npm:core-js@0.9.8",
     "eduardolundgren/tracking.js": "github:eduardolundgren/tracking.js@1.1.0",
+    "hiddentao/google-tts": "github:hiddentao/google-tts@1.0.1",
     "jquery": "github:components/jquery@2.1.4",
     "rcombs/Cube.js": "github:rcombs/Cube.js@master",
     "github:jspm/nodelibs-process@0.1.1": {

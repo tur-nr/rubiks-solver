@@ -33,13 +33,29 @@ export function orange(r, g, b) {
 };
 
 export function green(r, g, b) {
-  var h = hue(r, g, b);
-  return h > 80 && h <= 170;
+  var threshold = 50,
+    dx = r - 0,
+    dy = g - 255,
+    dz = b - 0;
+
+  if ((g - r) >= threshold && (r - b) >= threshold) {
+    return true;
+  }
+
+  return dx * dx + dy * dy + dz * dz < 30000;
 };
 
 export function blue(r, g, b) {
-  var h = hue(r, g, b);
-  return h > 170 && h <= 270;
+  var threshold = 50,
+  dx = r-0 ,
+  dy = g-0,
+  dz = b-255;
+
+  if ((b - g) >= threshold && (g - r) >= threshold) {
+    return true;
+  }
+
+  return (dx*dx + dy*dy + dz*dz) < 35000;
 };
 
 export function white(r, g, b) {

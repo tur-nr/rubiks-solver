@@ -23,6 +23,6 @@ export default function(instr) {
   var arr = instr.split(' ');
 
   return arr.map(function(ins) { 
-    return map[ins];
+    return { text: map[ins], key: ins };
   });
 };

@@ -4,13 +4,14 @@ import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
 import tracking from 'eduardolundgren/tracking.js';
-import colorTrackers from './color-trackers';
+import GoogleTTS from 'hiddentao/google-tts';
 
-tracking.ColorTracker.registerColor('red', colorTrackers.red);
-tracking.ColorTracker.registerColor('green', colorTrackers.green);
-tracking.ColorTracker.registerColor('blue', colorTrackers.green);
+var audio = document.createElement('audio');
+function play(key) {
+  audio.src = 'assets/' + key + '.mp3';
+}
 
-var tracker = new tracking.ColorTracker(['blue']);
+var tracker = new tracking.ColorTracker();
 
 var movesArray = ['RIGHT CLOCKWISE', 'RIGHT ANTICLOCKWISE', 'LEFT CLOCKWISE', 'LEFT ANTICLOCKWISE'];
 
@@ -122,19 +123,8 @@ function completeCube() {
 }
 /* 3D Cube - END */
 
-var called = false;
 function showVideo() {
   tracking.track('#camera', tracker, {camera: true});
-  tracker.on('track', function(event) {
-    if (event.data.length !== 9) {
-      return;
-    }
-
-    if (called) return;
-
-    console.log(faceSort(event.data));
-    called = true;
-  });
 }
 
 function setUpCameraPageNextClickEvent() {
