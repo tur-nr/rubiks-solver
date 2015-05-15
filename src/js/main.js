@@ -5,6 +5,10 @@ import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
 import tracking from 'eduardolundgren/tracking.js';
 
+Cube.generateTables(function(){}, function() {});
+
+var moves;
+
 var audio = document.createElement('audio');
 function play(key) {
   audio.src = 'assets/' + key + '.mp3';
@@ -32,12 +36,12 @@ var faces = {
 };
 
 var cheatModeConfig = [
-  ['red', 'blue', 'orange', 'yellow', 'red', 'white', 'blue', 'white', 'green'],
-  ['orange', 'orange', 'yellow', 'red', 'green', 'red', 'green', 'orange', 'blue'],
-  ['orange', 'red', 'white', 'blue', 'white', 'yellow', 'red', 'orange', 'yellow'],
-  ['blue', 'blue', 'red', 'green', 'orange', 'green', 'white', 'yellow', 'orange'],
-  ['green', 'orange', 'yellow', 'green', 'blue', 'white', 'red', 'white', 'yellow'],
-  ['green', 'red', 'white', 'green', 'yellow', 'yellow', 'white', 'blue', 'blue']
+  ['orange', 'orange', 'white', 'green', 'red', 'green', 'orange', 'orange', 'white'],
+  ['blue', 'white', 'blue', 'orange', 'green', 'orange', 'blue', 'white', 'blue'],
+  ['white', 'white', 'red', 'green', 'white', 'blue', 'white', 'white', 'red'],
+  ['red', 'red', 'yellow', 'blue', 'orange', 'blue', 'red', 'red', 'yellow'],
+  ['green', 'red', 'green', 'yellow', 'blue', 'yellow', 'green', 'red', 'green'],
+  ['orange', 'yellow', 'yellow', 'green', 'yellow', 'blue', 'orange', 'yellow', 'yellow']
 ];
 
 function faceSort(matrix) {
@@ -82,9 +86,16 @@ function setUpClickEvents() {
 }
 
 function nextMove() {
-  // your stuff goes here
-  randomiser();
+  var move = moves.shift();
 
+  if (!move) {
+    completeCube();
+    return;
+  }
+
+  play(move.key); 
+  swapInstructionText(move.text);
+  randomiser();
   randomCubeTransform();
 }
 
@@ -188,7 +199,7 @@ function startRandomMoves() {
   setInterval(function() {
     swapInstructionText(getRandomMove() + '!!!');
     randomiser();
-    tranfromCube(Math.floor(Math.random() * 180), Math.floor(Math.random() * 180));
+    tranfromCube(Math.floor(Math.random() * 80), Math.floor(Math.random() * 80));
   }, 3000);
 
 }
@@ -208,13 +219,24 @@ function swapPageOneForPageTwo() {
 function swapPageTwoForPageThree() {
   $('.camera-page').hide();
   $('.loading-page').show();
-  setTimeout(swapPageThreeForPageFour, 3000);
+
+  if (!Cube.tablesGenerated) {
+    setTimeout(swapPageTwoForPageThree, 1000);
+    return;
+  }
+
+  var adapter = createCubeAdapter();
+  Cube.solveCube(adapter.asString(), done, function() {}, false, 24, 15);
+
+  function done(res) {
+    moves = instructions(res);
+    setTimeout(swapPageThreeForPageFour, 3000);
+  } 
 }
 
 function swapPageThreeForPageFour() {
   $('.loading-page').hide();
   $('.solution-page').show();
-  createCubeAdapter()
 }
 
 /* Nav - END */
@@ -229,7 +251,6 @@ function createCubeAdapter() {
     });
     cube.setSide(side, colors);
   }
-  window.cube = cube;
   return cube;
 }
 
@@ -297,5 +318,3 @@ setUpCameraGridSquareColorToggle();
 setUpClickEvents();
 randomiser();
 setMiddleSquares();
-
-createCubeAdapter();
