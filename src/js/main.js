@@ -60,9 +60,13 @@ function randomiser() {
  * you clicked as if you've pushed it
  */
 $('.cube').mouseup(function(e) {
-  $('.cube').css({transform: 'rotateY('+e.clientX+'deg) rotateX(' + e.clientY + 'deg)' });
+  transformCube(e.clientX, e.clientY);
 });
 
+
+function tranfromCube(x, y) {
+  $('.cube').css({transform: 'rotateY('+ x +'deg) rotateX(' + y + 'deg)' });
+}
 
 /**
  * This function paints the given face of the cube
@@ -102,6 +106,7 @@ function completeCube() {
       i++;
     }
   }
+  swapInstructionText('BOOM!!!');
 }
 
 function showVideo() {
@@ -119,8 +124,9 @@ function swapInstructionText(text) {
 /* TEST */
 function startRandomMoves() {
   setInterval(function() {
-    swapInstructionText(getRandomMove());
+    swapInstructionText(getRandomMove() + '!!!');
     randomiser();
+    tranfromCube(Math.floor(Math.random() * 360), Math.floor(Math.random() * 360));
   }, 3000);
 
 }
