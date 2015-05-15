@@ -163,6 +163,7 @@ function completeCube() {
     }
   }
   swapInstructionText('BOOM!!!');
+  playDone();
 }
 /* 3D Cube - END */
 
