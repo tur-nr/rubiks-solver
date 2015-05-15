@@ -9,6 +9,12 @@ import GoogleTTS from 'hiddentao/google-tts';
 var audio = document.createElement('audio');
 function play(key) {
   audio.src = 'assets/' + key + '.mp3';
+  audio.play();
+}
+
+function playDone() {
+  audio.src = 'assets/done.mp3';
+  audio.play();
 }
 
 var tracker = new tracking.ColorTracker();
