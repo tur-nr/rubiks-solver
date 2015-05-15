@@ -17,12 +17,9 @@ function playDone() {
 }
 
 var tracker = new tracking.ColorTracker();
-
 var movesArray = ['RIGHT CLOCKWISE', 'RIGHT ANTICLOCKWISE', 'LEFT CLOCKWISE', 'LEFT ANTICLOCKWISE'];
-
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
 var colorArray = ['red', 'green', 'white','orange', 'blue', 'yellow'];
-
 var facesArray = ['.cube-face-front','.cube-face-back', '.cube-face-left','.cube-face-right','.cube-face-top', '.cube-face-bottom'];
 
 var faces = {
@@ -86,6 +83,9 @@ function setUpClickEvents() {
 
 function nextMove() {
   // your stuff goes here
+  randomiser();
+
+  randomCubeTransform();
 }
 
 
@@ -112,6 +112,9 @@ function transformCube(x, y) {
   $('.cube').css({transform: 'rotateY('+ x +'deg) rotateX(' + y + 'deg)' });
 }
 
+function randomCubeTransform() {
+  transformCube(Math.floor(Math.random() * 360), Math.floor(Math.random() * 360));
+}
 /**
  * This function paints the given face of the cube
  *
@@ -132,7 +135,8 @@ function paintCheatModeOnCube() {
   for(var i=0; i<$cubeFaces.length; i++) {
     var $faceboxes = $($cubeFaces[i]).find('.face__box');
     for(var j=0; j<$faceboxes.length; j++) {
-      $($faceboxes[j]).addClass(colorDefinitions[cheatModeConfig[i][j]]);
+      var $facebox =  $($faceboxes[j]);
+      $facebox.removeClass('blue-square orange-square white-square red-square yellow-square green-square').addClass(colorDefinitions[cheatModeConfig[i][j]]);
     }
   }
 }
@@ -184,7 +188,7 @@ function startRandomMoves() {
   setInterval(function() {
     swapInstructionText(getRandomMove() + '!!!');
     randomiser();
-    tranfromCube(Math.floor(Math.random() * 360), Math.floor(Math.random() * 360));
+    tranfromCube(Math.floor(Math.random() * 180), Math.floor(Math.random() * 180));
   }, 3000);
 
 }
@@ -204,18 +208,16 @@ function swapPageOneForPageTwo() {
 function swapPageTwoForPageThree() {
   $('.camera-page').hide();
   $('.loading-page').show();
-  setTimeout(swapPageThreeForPageFour, 5000);
+  setTimeout(swapPageThreeForPageFour, 3000);
 }
 
 function swapPageThreeForPageFour() {
   $('.loading-page').hide();
   $('.solution-page').show();
   createCubeAdapter()
-  //startRandomMoves()
 }
 
 /* Nav - END */
-
 
 function createCubeAdapter() {
   var cube = new CubeAdapter();
@@ -263,7 +265,6 @@ function getCameraGridState() {
 }
 
 
-
 /* Done squares */
 
 function paintFaceOnDoneSquare(squareNumber, colors) {
@@ -287,13 +288,11 @@ function paintColorClassesFaceOnDoneSquare(squareNumber, colors) {
 function cheatMode() {
    for(var i=1; i<= cheatModeConfig.length; i++) {
      paintFaceOnDoneSquare(i, cheatModeConfig[i-1]);
-     paintFaceOnCube(i, cheatModeConfig[i-1]);
    }
   paintCheatModeOnCube();
 }
 
 setUpCameraGridSquareColorToggle();
-//paintFaceOnDoneSquare(1, ['blue', 'red', 'green','blue', 'red', 'green','blue', 'red', 'green']);
 
 setUpClickEvents();
 randomiser();
