@@ -11,6 +11,9 @@ var tracker = new tracking.ColorTracker(['yellow']);
 var movesArray = ['RIGHT CLOCKWISE', 'RIGHT ANTICLOCKWISE', 'LEFT CLOCKWISE', 'LEFT ANTICLOCKWISE'];
 
 var colorClasses = ['blue-square', 'orange-square', 'white-square', 'red-square', 'yellow-square', 'green-square'];
+var colorArray = ['red', 'green', 'white','orange', 'blue', 'yellow'];
+
+var facesArray = ['.cube-face-front','.cube-face-back', '.cube-face-left','.cube-face-right','.cube-face-top', '.cube-face-bottom'];
 
 var faces = {
   front: '.cube-face-front',
@@ -22,12 +25,12 @@ var faces = {
 };
 
 var cheatModeConfig = [
-  ['blue', 'green', 'orange', 'red', 'blue', 'green', 'red', 'red', 'red'],
-  ['blue', 'green', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red'],
-  ['blue', 'green', 'orange', 'red', 'red', 'green', 'orange', 'red', 'red'],
-  ['red', 'green', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red'],
-  ['blue', 'red', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red'],
-  ['blue', 'green', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red']
+  ['red', 'blue', 'orange', 'yellow', 'red', 'white', 'blue', 'white', 'green'],
+  ['orange', 'orange', 'yellow', 'red', 'green', 'red', 'green', 'orange', 'blue'],
+  ['orange', 'red', 'white', 'blue', 'white', 'yellow', 'red', 'orange', 'yellow'],
+  ['blue', 'blue', 'red', 'green', 'orange', 'green', 'white', 'yellow', 'orange'],
+  ['green', 'orange', 'yellow', 'green', 'blue', 'white', 'red', 'white', 'yellow'],
+  ['green', 'red', 'white', 'green', 'yellow', 'yellow', 'white', 'blue', 'blue']
 ];
 
 
@@ -82,14 +85,14 @@ $('.cube').mouseup(function(e) {
 });
 
 
-function tranfromCube(x, y) {
+function transformCube(x, y) {
   $('.cube').css({transform: 'rotateY('+ x +'deg) rotateX(' + y + 'deg)' });
 }
 
 /**
  * This function paints the given face of the cube
  *
- * @param: face 'string' - front/back/left...
+ * @param: face 'number' - front/back/left...
  * @param: colors 'array of strings: 9' - ['blue', 'green']
  */
 function paintFaceOnCube(face, colors) {
@@ -97,6 +100,18 @@ function paintFaceOnCube(face, colors) {
   $faceSquares.each(function(key, val) {
     $faceSquares.removeClass('blue-square orange-square white-square red-square yellow-square green-square').addClass(colors[key]);
   });
+}
+
+
+function paintCheatModeOnCube() {
+  var $cubeFaces = $('.cube-face');
+
+  for(var i=0; i<$cubeFaces.length; i++) {
+    var $faceboxes = $($cubeFaces[i]).find('.face__box');
+    for(var j=0; j<$faceboxes.length; j++) {
+      $($faceboxes[j]).addClass(colorDefinitions[cheatModeConfig[i][j]]);
+    }
+  }
 }
 
 /**
@@ -107,6 +122,8 @@ function paintFaceOnCube(face, colors) {
  */
 function getSquaresOnFace(face) {
   var faceClass = faces[face];
+
+
   return $(faceClass).find('.face__box');
 }
 
@@ -175,11 +192,26 @@ function swapPageTwoForPageThree() {
 function swapPageThreeForPageFour() {
   $('.loading-page').hide();
   $('.solution-page').show();
-  startRandomMoves()
+  createCubeAdapter()
+  //startRandomMoves()
 }
 
 /* Nav - END */
 
+
+function createCubeAdapter() {
+  var cube = new CubeAdapter();
+
+  for(var i=0; i< cheatModeConfig.length; i++) {
+    var side = colorArray[i];
+    var colors = cheatModeConfig[i].map(function(color) {
+      return color.substring(0, 1);
+    });
+    cube.setSide(side, colors);
+  }
+  window.cube = cube;
+  return cube;
+}
 
 /* Camera Grid */
 function paintGridSquare(index, color) {
@@ -237,7 +269,9 @@ function paintColorClassesFaceOnDoneSquare(squareNumber, colors) {
 function cheatMode() {
    for(var i=1; i<= cheatModeConfig.length; i++) {
      paintFaceOnDoneSquare(i, cheatModeConfig[i-1]);
+     paintFaceOnCube(i, cheatModeConfig[i-1]);
    }
+  paintCheatModeOnCube();
 }
 
 setUpCameraGridSquareColorToggle();
@@ -247,3 +281,4 @@ setUpClickEvents();
 randomiser();
 setMiddleSquares();
 
+createCubeAdapter();
