@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import colors from './colorsDefinitions';
+import colorDefinitions from './colorsDefinitions';
 import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
@@ -21,10 +21,21 @@ var faces = {
   bottom: '.cube-face-bottom'
 };
 
+var cheatModeConfig = [
+  ['blue', 'green', 'orange', 'red', 'blue', 'green', 'red', 'red', 'red'],
+  ['blue', 'green', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red'],
+  ['blue', 'green', 'orange', 'red', 'red', 'green', 'orange', 'red', 'red'],
+  ['red', 'green', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red'],
+  ['blue', 'red', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red'],
+  ['blue', 'green', 'yellow', 'red', 'blue', 'green', 'orange', 'red', 'red']
+];
+
+
+
+var doneSquareChecker = 1;
 
 
 /* 3D Cube - START */
-
 function setMiddleSquares() {
   var i = 0;
   for(var face in faces) {
@@ -46,12 +57,16 @@ function setUpClickEvents() {
   $('.cube__complete').click(completeCube);
 
   $('.landing-page__button2').click(swapPageOneForPageTwo);
+
+  $('.camera-page__save').click(getCameraGridState);
+
+  $('.camera-page__cheat-mode').click(cheatMode);
 }
 
 function randomiser() {
   var $facebox = $('.face__box');
   $facebox.each(function() {
-    $(this).addClass(colorClasses[Math.floor(Math.random() * colorClasses.length-1)]);
+    $(this).removeClass('blue-square orange-square white-square red-square yellow-square green-square').addClass(colorClasses[Math.floor(Math.random() * colorClasses.length-1)]);
   });
 
   setMiddleSquares();
@@ -149,10 +164,6 @@ function swapPageOneForPageTwo() {
   $('.camera-page').show();
   showVideo();
   setUpCameraPageNextClickEvent();
-  paintGridSquare(1, 'blue');
-  paintGridSquare(2, 'green');
-  paintGridSquare(3, 'red');
-
 }
 
 function swapPageTwoForPageThree() {
@@ -172,9 +183,65 @@ function swapPageThreeForPageFour() {
 
 /* Camera Grid */
 function paintGridSquare(index, color) {
-  $('.camera-page__grid-square:nth-child('+index+')').addClass(colors[color]);
+  $('.camera-page__grid-square:nth-child('+index+')').addClass(colorDefinitions[color]);
 }
 
+function toggleColorOnCameraGrid(gridSquare) {
+  var currentColorClass = gridSquare.className;
+  currentColorClass = currentColorClass.replace('camera-page__grid-square', '').trim();
+  var colorIndex = colorClasses.indexOf(currentColorClass);
+  var newColorIndex = colorIndex === colorClasses.length - 1 ? 0 : colorIndex + 1;
+  $(gridSquare).removeClass(currentColorClass).addClass(colorClasses[newColorIndex]);
+}
+
+function setUpCameraGridSquareColorToggle() {
+  $('.camera-page__grid-square').click(function() {
+    toggleColorOnCameraGrid(this);
+  });
+}
+
+function getCameraGridState() {
+  var cameraSquares = $('.camera-page__grid-square');
+  var colorsArr = [];
+  for(var i=0; i<cameraSquares.length; i++) {
+    var className = cameraSquares[i].className || '';
+    colorsArr.push(className.replace('camera-page__grid-square', '').trim());
+  }
+  console.log('COLORS: ' + colorsArr);
+  paintColorClassesFaceOnDoneSquare(doneSquareChecker, colorsArr);
+  doneSquareChecker++;
+}
+
+
+
+/* Done squares */
+
+function paintFaceOnDoneSquare(squareNumber, colors) {
+  var doneSquare = $('.done-square')[squareNumber - 1];
+  var $doneSquareFaces = $(doneSquare).find('.done-square__grid-square');
+
+  for(var i=0; i< colors.length; i++) {
+    $($doneSquareFaces[i]).addClass(colorDefinitions[colors[i]]);
+  }
+}
+
+function paintColorClassesFaceOnDoneSquare(squareNumber, colors) {
+  var doneSquare = $('.done-square')[squareNumber - 1];
+  var $doneSquareFaces = $(doneSquare).find('.done-square__grid-square');
+
+  for(var i=0; i< colors.length; i++) {
+    $($doneSquareFaces[i]).addClass(colors[i]);
+  }
+}
+
+function cheatMode() {
+   for(var i=1; i<= cheatModeConfig.length; i++) {
+     paintFaceOnDoneSquare(i, cheatModeConfig[i-1]);
+   }
+}
+
+setUpCameraGridSquareColorToggle();
+//paintFaceOnDoneSquare(1, ['blue', 'red', 'green','blue', 'red', 'green','blue', 'red', 'green']);
 
 setUpClickEvents();
 randomiser();

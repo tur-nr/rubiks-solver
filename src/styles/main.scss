@@ -166,10 +166,11 @@ button {
         @include size(425px, 425px);
         z-index: 1;
     }
-    .camera-page__next {
+
+    .camera-page__buttons {
         position: absolute;
         bottom: 350px;
-        left: 40%;
+        left: 20%;
     }
 }
 /* doneSquares */
