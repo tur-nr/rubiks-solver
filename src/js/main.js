@@ -42,6 +42,7 @@ var cheatModeConfig = [
   ['green', 'orange', 'yellow', 'green', 'blue', 'white', 'red', 'white', 'yellow'],
   ['green', 'red', 'white', 'green', 'yellow', 'yellow', 'white', 'blue', 'blue']
 ];
+
 function faceSort(matrix) {
   return matrix.sort(function(a, b) {
     return a.y - b.y;
@@ -50,12 +51,9 @@ function faceSort(matrix) {
   });
 }
 
-
-
 var doneSquareChecker = 1;
 
 
-/* 3D Cube - START */
 /* 3D Cube - START */
 function setMiddleSquares() {
   var i = 0;
@@ -73,7 +71,7 @@ function setMiddleSquares() {
 }
 
 function setUpClickEvents() {
-  $('.cube__randomise').click(randomiser);
+  //$('.cube__randomise').click(randomiser);
 
   $('.cube__complete').click(completeCube);
 
@@ -82,7 +80,14 @@ function setUpClickEvents() {
   $('.camera-page__save').click(getCameraGridState);
 
   $('.camera-page__cheat-mode').click(cheatMode);
+
+  $('.cube__nextMove').click(nextMove);
 }
+
+function nextMove() {
+  // your stuff goes here
+}
+
 
 function randomiser() {
   var $facebox = $('.face__box');
