@@ -110,7 +110,10 @@ function completeCube() {
 }
 
 function showVideo() {
-  return tracking.track('#camera', tracker, {camera: true});
+  tracking.track('#camera', tracker, {camera: true});
+  tracker.on('track', function(event) {
+    console.log(event.data.length);
+  });
 }
 
 function setUpCameraPageNextClickEvent() {
