@@ -144,7 +144,9 @@ button {
         z-index: 2;
         .camera-page__grid-square {
             @include size(102px, 102px);
-            border: 2px solid white
+            border: 2px solid white;
+            opacity: 0.7;
+            transition-duration: 1s;
         }
     }
 
@@ -178,7 +180,6 @@ button {
     position: absolute;
     display: flex;
     flex-flow: row wrap;
-
 
     &:nth-of-type(1) {
         top: 200px;
@@ -283,6 +284,7 @@ button {
                 display: flex;
                 flex-flow: row wrap;
                 border: 2px solid white;
+                transition-duration: 1s;
             }
             // faces
             .cube-face-front {

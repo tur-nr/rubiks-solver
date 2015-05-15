@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import colors from './colorsDefinitions';
-import moves from './movesDefinitions';
 import Cube from 'rcombs/Cube.js';
 import CubeAdapter from './cube-adapter';
 import instructions from './instructions';
@@ -21,6 +20,10 @@ var faces = {
   top: '.cube-face-top',
   bottom: '.cube-face-bottom'
 };
+
+
+
+/* 3D Cube - START */
 
 function setMiddleSquares() {
   var i = 0;
@@ -74,10 +77,10 @@ function tranfromCube(x, y) {
  * @param: face 'string' - front/back/left...
  * @param: colors 'array of strings: 9' - ['blue', 'green']
  */
-function paintFace(face, colors) {
+function paintFaceOnCube(face, colors) {
   var $faceSquares = getSquaresOnFace(face);
   $faceSquares.each(function(key, val) {
-    $faceSquares.addClass(colors[key]);
+    $faceSquares.removeClass('blue-square orange-square white-square red-square yellow-square green-square').addClass(colors[key]);
   });
 }
 
@@ -109,6 +112,8 @@ function completeCube() {
   swapInstructionText('BOOM!!!');
 }
 
+/* 3D Cube - END */
+
 function showVideo() {
   tracking.track('#camera', tracker, {camera: true});
   tracker.on('track', function(event) {
@@ -138,12 +143,16 @@ function getRandomMove() {
   return movesArray[Math.floor(Math.random() * movesArray.length)];
 }
 
-/* Nav */
+/* Nav - START */
 function swapPageOneForPageTwo() {
   $('.landing-page').hide();
   $('.camera-page').show();
   showVideo();
   setUpCameraPageNextClickEvent();
+  paintGridSquare(1, 'blue');
+  paintGridSquare(2, 'green');
+  paintGridSquare(3, 'red');
+
 }
 
 function swapPageTwoForPageThree() {
@@ -158,8 +167,16 @@ function swapPageThreeForPageFour() {
   startRandomMoves()
 }
 
+/* Nav - END */
+
+
+/* Camera Grid */
+function paintGridSquare(index, color) {
+  $('.camera-page__grid-square:nth-child('+index+')').addClass(colors[color]);
+}
 
 
 setUpClickEvents();
 randomiser();
 setMiddleSquares();
+
